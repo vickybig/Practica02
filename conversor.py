@@ -8,13 +8,16 @@ def cargar_tasas(ruta):
         return json.load(archivo)
     
 def convertir(precio_usd, moneda_destino, tasas):
-    """ Convierte el valor a otra moneda"""
-    #Obtiene la tasa de cambio de dolares a la moneda destino 
+    """Convierte el valor a otra moneda"""
+    # Obtiene la tasa de cambio de dólares a la moneda destino 
     tasa = tasas["USD"].get(moneda_destino)
     if not tasa:
-        #si la moneda de destino no existe , lanza una excepcion
+        # Si la moneda de destino no existe, lanza una excepción
         raise ValueError("Moneda no soportada")
-    return precio_usd * tasa
+
+    # Redondear el resultado a 2 decimales
+    return round(precio_usd * tasa, 2)
+
 
 def registrar_transaccion(producto, precio_convertido, moneda, ruta_log):
     """Escribe una nueva linea en el archivo de registro"""
